@@ -1,66 +1,71 @@
 @startuml
 
 class Customer <<Entity>> {
-    + customerId: Number
-    + customerName: String
-    + customerEmail: String
-    + customerPassword: String
-    + customerAddress: String
-    + customerPhoneNumber: String
+    + id: Number
+    + name: String
+    + email: String
+    + password: String
+    + address: String
+    + phone: String
     + orders: Order[]
     + cart: Cart
+    + addToCart()
+    + removeFromCart()
+    + proceedToCheckout()
 }
 
 class Seller <<Entity>> {
-    + sellerId: Number
-    + sellerName: String
-    + sellerPhone: String
-    + sellerEmail: String
-    + sellerPassword: String
-    + sellerZone: String
+    + id: Number
+    + name: String
+    + phone: String
+    + email: String
+    + password: String
+    + serviceArea: String
     + completeOrder()
     + cancelOrder()
     + updateOrderStatus()
 }
 
-class FlowerShop <<Entity>> {
-    + flowerType: FlowerType[]
-    + itemAmount: Number
-    + addToCart()
-    + removeFromCart()
+class Flower <<Entity>> {
+    + name: FlowerName[]
+    + price: Number
+}
+
+enum FlowerName{
+    Roses 
+    Lillies 
+    Orchids 
+    Sunflower
 }
 
 class Cart {
-    + items: FlowerShop[]
+    + items: Flower[]
     + totalCartAmount: Number
-    + cartStatus: String
-    + removeItem()
-    + addItem()
-    + proceedToCheckout()
-    + updateCardStatus()
+    + status: String
+    + updateStatus()
 }
 
 class Order <<Entity>> {
     + orderId: Number
-    + orderItems: Cart[]
+    + items: Cart[]
     + deliveryAddress: DeliveryAddress
     + date: String
     + giftNote: String
-    + orderZone: String
-    + orderStatus: String
+    + zone: String
+    + status: String
     + paymentStatus: String
     + totalAmount: Cart
-    + seller: AssignSeller
+    + seller: assignSeller
     + proceedToPayment()
     + getPaymentStatus()
-    + createOrder()
+    + sendOrderToSeller()
     + getOrderStatus()
 }
 
 class DeliveryAddress {
-    + deliveryAddress: String
-    + SaveAddress()
-    + SelectAddress()
+    + deliveryAddress: String[]
+    + saveAddress()
+    + selectAddress()
 }
 
 class Payment{
@@ -77,7 +82,7 @@ enum PaymentStatus{
     error
 }
 
-enum SellerZone{
+enum ServiceArea{
     Seller1: Charlottenburg
     Seller2: Mitte 
     Seller3: Kreuzberg
@@ -89,28 +94,21 @@ enum OrderStatus{
     cancelled
 }
 
-enum FlowerType{
-    Roses 
-    Lillies 
-    Orchids 
-    Sunflower
-}
-
 interface AssignSeller{
     + orderZone: String
-    + sellerZone: String
-    + AssignSeller()
+    + serviceArea: String
+    + assignSeller()
 }
 
 Customer "0..n" *--> "1" Cart
 Customer "0..n" *--> "m" Order
-Cart o--> FlowerShop
-FlowerShop --> FlowerType
+Cart o--> Flower
+Flower --> FlowerName
 Order --> DeliveryAddress
 Payment --> PaymentStatus
 Order <--> Payment
 Seller <--> AssignSeller
-AssignSeller --> SellerZone
+AssignSeller --> ServiceArea
 AssignSeller --> Order
 Seller "0..n" o--> "m" Order
 Seller --> OrderStatus
