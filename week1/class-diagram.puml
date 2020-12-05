@@ -1,0 +1,119 @@
+@startuml
+
+class Customer <<Entity>> {
+    + customerId: Number
+    + customerName: String
+    + customerEmail: String
+    + customerPassword: String
+    + customerAddress: String
+    + customerPhoneNumber: String
+    + orders: Order[]
+    + cart: Cart
+}
+
+class Seller <<Entity>> {
+    + sellerId: Number
+    + sellerName: String
+    + sellerPhone: String
+    + sellerEmail: String
+    + sellerPassword: String
+    + sellerZone: String
+    + completeOrder()
+    + cancelOrder()
+    + updateOrderStatus()
+}
+
+class FlowerShop <<Entity>> {
+    + flowerType: FlowerType[]
+    + itemAmount: Number
+    + addToCart()
+    + removeFromCart()
+}
+
+class Cart {
+    + items: FlowerShop[]
+    + totalCartAmount: Number
+    + cartStatus: String
+    + removeItem()
+    + addItem()
+    + proceedToCheckout()
+    + updateCardStatus()
+}
+
+class Order <<Entity>> {
+    + orderId: Number
+    + orderItems: Cart[]
+    + deliveryAddress: DeliveryAddress
+    + date: String
+    + giftNote: String
+    + orderZone: String
+    + orderStatus: String
+    + paymentStatus: String
+    + totalAmount: Cart
+    + seller: AssignSeller
+    + proceedToPayment()
+    + getPaymentStatus()
+    + createOrder()
+    + getOrderStatus()
+}
+
+class DeliveryAddress {
+    + deliveryAddress: String
+    + SaveAddress()
+    + SelectAddress()
+}
+
+class Payment{
+    + orderId: Number
+    + totalAmount: Number
+    + creditCardNumber: Number
+    + paymentStatus: String
+    + completePayment()
+    + updatePaymentStatus()
+}
+
+enum PaymentStatus{
+    success
+    error
+}
+
+enum SellerZone{
+    Seller1: Charlottenburg
+    Seller2: Mitte 
+    Seller3: Kreuzberg
+}
+
+enum OrderStatus{
+    delivered
+    inTransit
+    cancelled
+}
+
+enum FlowerType{
+    Roses 
+    Lillies 
+    Orchids 
+    Sunflower
+}
+
+interface AssignSeller{
+    + orderZone: String
+    + sellerZone: String
+    + AssignSeller()
+}
+
+Customer "0..n" *--> "1" Cart
+Customer "0..n" *--> "m" Order
+Cart o--> FlowerShop
+FlowerShop --> FlowerType
+Order --> DeliveryAddress
+Payment --> PaymentStatus
+Order <--> Payment
+Seller <--> AssignSeller
+AssignSeller --> SellerZone
+AssignSeller --> Order
+Seller "0..n" o--> "m" Order
+Seller --> OrderStatus
+Cart *--> Order
+
+@enduml
