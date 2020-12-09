@@ -47,7 +47,7 @@ class Cart {
 
 class Order <<Entity>> {
     + orderId: Number
-    + items: Cart[]
+    + cart: Cart
     + deliveryAddress: DeliveryAddress
     + date: String
     + giftNote: String
