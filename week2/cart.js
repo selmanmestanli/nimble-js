@@ -33,31 +33,53 @@ Object.freeze(flowers);
 
 class Cart {
     constructor(item = flowers) {
-        this.item = [item]
+        //this.item = item
     }
     
 }
 //var cart = new Cart(flowers.LILLIES.name, flowers.LILLIES.price)
-cart = new Cart()
-cart.item.push(flowers.ROSES)
-console.log(cart)
+//cart = new Cart()
+//cart.item.push(flowers.ROSES)
+//console.log(cart)
 
-// class Customer {
-//     constructor(name, cart = Cart) {
-//         this.name = name
-//         this.cart = cart
-//     }
+class Customer {
+    constructor(name, phone) {
+        this.name = name
+        this.phone = phone
+        this.cart = []
+    }
 
-    // updateProfile(email, password, address, phone) {
-    //     this.email = email
-    //     this.password = password
-    //     this.address = address
-    //     this.phone = phone
-    // }    
+    updateProfile(phone) {
+        this.phone = phone
+    }
     
-//     addToCart(Customer) {
+    addToCart(item = flowers) {
+        //this.item = item  
+        var cart = new Cart(item, this)
+
+        this.cart.push(item)
+
+        return cart
+    }
+
+}
+const Selman = new Customer('selman', '532')
+//console.log(Selman)
+
+Selman.updateProfile('555')
+//console.log(Selman)
+
+Selman.addToCart(flowers.ROSES)
+//console.log(Selman)
+Selman.addToCart(flowers.LILLIES)
+console.log(Selman)
+console.log(Selman.cart[0].price)
+console.log(Selman.cart[0].name)
+
+    
+    //addToCart(Customer) {
         
-//     }
+    //}
 // }
 
 // const selman = new Customer(1, 'Selman', 5305050)
