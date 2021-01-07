@@ -62,6 +62,20 @@ class Customer {
         return cart
     }
 
+    removeFromCart(item = flowers) {
+        //this.item = item
+        
+        var cart = new Cart(item, this)
+
+        //?const valueToRemove = this.item
+        const valueToRemove = this.cart.indexOf(item)
+        //this.cart.filter(item => item !== valueToRemove)
+        this.cart.splice(valueToRemove, 1)
+        //?console.log(valueToRemove)
+    
+        return cart
+    }
+
 }
 const Selman = new Customer('selman', '532')
 //console.log(Selman)
@@ -72,9 +86,19 @@ Selman.updateProfile('555')
 Selman.addToCart(flowers.ROSES)
 //console.log(Selman)
 Selman.addToCart(flowers.LILLIES)
+//console.log(Selman)
+//console.log(Selman.cart[0].price)
+//console.log(Selman.cart[0].name)
+Selman.removeFromCart(flowers.LILLIES)
+//console.log(Selman)
+Selman.addToCart(flowers.SUNFLOWER)
+//console.log(Selman)
+Selman.addToCart(flowers.ROSES)
+//console.log(Selman)
+//console.log(Selman.cart[0].name)
+Selman.removeFromCart(flowers.SUNFLOWER)
 console.log(Selman)
 console.log(Selman.cart[0].price)
-console.log(Selman.cart[0].name)
 
     
     //addToCart(Customer) {
