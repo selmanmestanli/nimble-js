@@ -56,11 +56,12 @@ class Customer {
     addToCart(item = flowers) {
         var cart = new Cart(item, this)
         this.cart.push(item)
+
         return cart
     }
 
     removeFromCart(item = flowers) {
-        //this.item = item
+        //this.item = item -> bunu koyunca neden customer sınıfında son çıkarılan item i gösteriyor?
         
         var cart = new Cart(item, this)
 
@@ -69,6 +70,12 @@ class Customer {
     
         return cart
     }
+    // proceedToCheckout(checkoutCart) {
+    //     this.checkoutCart = checkoutCart
+    //     this.checkoutCart.push(cart.name)
+
+    //     return checkoutCart
+    // }
 
 }
 const Selman = new Customer('selman', '532')
@@ -93,5 +100,14 @@ Selman.addToCart(flowers.ROSES)
 Selman.removeFromCart(flowers.SUNFLOWER)
 console.log(Selman)
 console.log(Selman.cart[0].price)
+console.log(Selman.cart.name
+
+// class Checkout {
+//     constructor(customer = Customer) {
+//         this.customer = customer
+//         this.cart = this.cart
+//         this.deliveryAddress = deliveryAddress
+//     }
+// }
 
 
