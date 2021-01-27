@@ -30,7 +30,7 @@ class Flowershop { //stok kontrol edecegim bu sınıfta
         this.stock = stock
     }
 
-    decreaseAmount(flowers) {
+    decreaseStock(flowers) {
         flowers.stock = flowers.stock -1 
         console.log('Remaining ' +flowers.name + ' stock: ' + flowers.stock)
     }
@@ -59,7 +59,7 @@ class Cart extends Flowershop {
         itemsPriceList.push(item.price)
         console.log(itemsPriceList)
         
-        this.decreaseAmount(item)
+        this.decreaseStock(item)
         this.CalcTotalCartAmount(itemsPriceList)        
     }
 
